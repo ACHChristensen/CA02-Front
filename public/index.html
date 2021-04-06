@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hobbies, persons and places</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <!--
+    This div is added to remove the flicker that comes from bootstrap being loaded
+    first in index.js
+    REMEMBER to set display to "block" in index.js, otherwise you will not see anything
+  -->
+  <div id="all-content" style="display: none;">
+    <ul id="menu" class="header">
+      <li><a href="" id="home">Home</a></li>
+      <li><a href="" id="personer">Persons</a></li>
+      <li><a href="" id="hobbies">Hobbies</a></li>
+      <li><a href="" id="postnumre">Zipcodes</a></li>
+      <li><a href="" id="administrer">Admin-site</a></li>
+    </ul>
+    <!-- <b><input type="text" id="searchText"><button id="search">Search</button></b> -->
+
+    <div class="content">
+
+      <div id="search_html" style="display: none;">
+        <h3>search placeholder</h3>
+      </div>
+
+      <!-- This is were you should place your basic HTML for exercise-1 -->
+      <div id="postnumre_html" style="display:none;">
+        <h3>Zip Codes</h3>
+        <div class="row">
+          <div class="col-md-8" style="padding-left: 10px">
+            <div class="autocomplete stretchToFit">
+              <input type="text" id="cityName" placeholder="City name" class="stretchToFit">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <input type="button" id="personsByZipSearch" class="stretchToFit" value="Search">
+          </div>
+          <div class="col-md-2" style="padding-right: 0">
+            <input type="button" id="getAllZips" class="stretchToFit" value="Fetch all zipcodes">
+          </div>
+        </div>
+        <table class="table table-bordered" id="personsByZip"></table>
+
+
+
+        <table class="table table-bordered" id="zipCodes"></table>
+
+
+      </div>
+      <!-- End of HTML for exercise-1 -->
+      <div id="administrer_html" style="display: none;">
+        <div class="row" style="min-height: 5em;">
+
+          <div class="col-md-4" id="center">
+            <h5>Add User</h5>
+          </div>
+
+
+          <div class="col-md-4" id="center">
+            <h5>Edit User</h5>
+          </div>
+          <div class="col-md-4" id="center">
+
+            <h5>Delete User by ID</h5>
+
+
+
+          </div>
+        </div>
+
+
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+            <form id="createPerson">
+              <div class="col-md-6" style="padding-left: 0">
+                <label for="personFirstName">First name</label>
+                <input type="text" id="personFirstName" class="stretchToFit">
+              </div>
+              <div class="col-md-6" style="padding-right: 0">
+                <label for="personLastName">Last name</label>
+                <input type="text" id="personLastName" class="stretchToFit">
+              </div>
+            </form>
+          </div>
+
+
+          <div class="col-md-4">
+            <div class="col-md-6">
+              <input type="number" , id="editPersonPhone">
+            </div>
+            <div class="col-md-6" style="padding:-left 10px">
+              <input type="button" id="findEditPerson" value="find" class="right">
+            </div>
+
+
+
+          </div>
+
+
+          <div class="col-md-4">
+            <div class="col-md-6">
+              <input type="number" , id="deletePersonID">
+            </div>
+            <div class="col-md-6">
+              <input type="button" id="deletePerson" value="delete">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+            <form id="createPerson">
+              <label for="personEmail">email</label>
+              <br>
+              <input type="email" id="personEmail" class="stretchToFit">
+            </form>
+
+          </div>
+          <div class="col-md-4" id="nameEditDiv">
+            <div class="col-md-6" style="padding-left: 0">
+              <label  for="personFirstNameEdit">First name</label>
+              <input type="text" id="personFirstNameEdit" class="stretchToFit">
+            </div>
+            <div class="col-md-6" style="padding-right: 0">
+              <label for="personLastNameEdit">Last name</label>
+              <input type="text" id="personLastNameEdit" class="stretchToFit">
+            </div>
+
+
+          </div>
+          <div class="col-md-4">
+            <p id="wasDeletedOrNot"></p>
+
+
+          </div>
+        </div>
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+            <form id="createPerson" >
+              <div class="autocomplete">
+                <label for="cityInput">City</label>
+                <br>
+                <input id="cityInput" type="text" name="cityInput" placeholder="City or zip goes here"
+                  class="stretchToFit">
+              </div>
+            </form>
+
+          </div>
+          <div class="col-md-4" id="emailEditDiv">
+            <label for="personEmailEdit">email</label>
+            <br>
+            <input type="email" id="personEmailEdit" class="stretchToFit">
+          </div>
+          <div class="col-md-4">
+
+
+
+          </div>
+        </div>
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+
+            <form id="createPerson">
+              <div class="col-md-9" style="padding-left:0">
+                <label for="addressInput">Address</label>
+                <br>
+                <input type="text" id="addressInput" class="stretchToFit">
+              </div>
+              <div class="col-md-3" style="padding-right:0">
+                <label for="addressNumberInput">Nr</label>
+                <br>
+                <input type="text" id="addressNumberInput" class="stretchToFit">
+              </div>
+            </form>
+          </div>
+
+
+          <div class="col-md-4" id="cityEditDiv">
+
+            <div class="autocomplete">
+              <label for="cityInputEdit">City</label>
+              <br>
+              <input id="cityInputEdit" type="text" name="cityInputEdit" placeholder="City or zip goes here"
+                class="stretchToFit">
+            </div>
+
+          </div>
+          <div class="col-md-4">
+          </div>
+
+
+        </div>
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+            <form id="createPerson">
+              <div class="col-md-8" style="padding-left: 0">
+                <label for="phoneNrInput">Phone number</label>
+                <br>
+                <input type="number" id="phoneNrInput" class="stretchToFit">
+              </div>
+              <div class="col-md-2" style="padding-right: 0">
+                <label for="homeRadio">Home</label>
+                <br>
+                <input type="radio" id="homeRadio" name="phoneRadio" value="home" class="stretchToFit">
+              </div>
+              <div class="col-md-2" style="padding-right: 0">
+                <label for="mobileRadio">Mobile</label>
+                <br>
+                <input type="radio" id="mobileRadio" name="phoneRadio" value="mobile" class="stretchToFit">
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-4" id="addressEditDiv">
+            <div class="col-md-9" style="padding-left:0">
+              <label for="addressInputEdit">Address</label>
+              <br>
+              <input type="text" id="addressInputEdit" class="stretchToFit">
+            </div>
+            <div class="col-md-3" style="padding-right:0">
+              <label for="addressNumberInputEdit">Nr</label>
+              <br>
+              <input type="text" id="addressNumberInputEdit" class="stretchToFit">
+            </div>
+          </div>
+          <div class="col-md-4">
+
+
+
+          </div>
+
+        </div>
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+
+            <div class="col-md-8" style="padding-left: 0">
+
+              <div class="autocomplete">
+                <label for="hobbyInput">Hobby</label>
+                <br>
+                <input id="hobbyInput" type="text" name="myHobby" placeholder="Hobby" class="stretchToFit">
+              </div>
+            </div>
+            <div class="col-md-4" style="padding-right: 0">
+              <br>
+              <input id="addHobbyBtn" type="button" value="add" class="stretchToFit" style="margin-top: 5px">
+            </div>
+
+
+          </div>
+
+          <div class="col-md-4" id="phoneEditDiv">
+
+            <div class="col-md-6" style="padding-left: 0">
+              <label for="phoneNrInputEdit">Phone number</label>
+              <br>
+              <input type="number" id="phoneNrInputEdit" class="stretchToFit">
+            </div>
+            <div class="col-md-3" style="padding-right: 0">
+              <label for="homeRadioEdit">Home</label>
+              <br>
+              
+              <input type="radio" id="homeRadioEdit" name="phoneRadioEdit" value="home" class="stretchToFit" style=" margin-top: 5px;">
+            </div>
+            <div class="col-md-3" style="padding-right: 0">
+              <label for="mobileRadioEdit">Mobile</label>
+              <br>
+              
+              <input type="radio" id="mobileRadioEdit" name="phoneRadioEdit" value="mobile" class="stretchToFit" style=" margin-top: 5px;">
+            </div>
+           
+
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+            
+              <table class="table table-bordered" id="addHobbyTable">
+              </table>
+              
+            
+          </div>
+
+          <div class="col-md-4" id="phoneEditTableDiv">
+            <div class="col-md-6">
+              <input type="button" id="addPhoneForEditBtn" value="Add" style="margin-top: 5px;">
+            </div> <div class="col-md-6">
+              <input type="button" id="removePhoneForEditBtn" value="Remove" style="margin-top: 5px;">
+            </div>
+            <br>
+            <table class=" table table-bordered" id="phoneEditTable"></table>
+          </div>
+
+          <div class="col-md-4">
+          </div>
+
+        </div>
+
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+            <form id="createPerson">
+              <input type="button" name="Submit" value="Submit" form="createPerson" id="creeateUserBtn">
+            </form>
+          </div>
+
+
+          <div class="col-md-4" id="hobbyEditDiv">
+
+            <div class="col-md-8" style="padding-left: 0">
+
+              <div class="autocomplete">
+                <label for="hobbyInputEdit">Hobby</label>
+                <br>
+                <input id="hobbyInputEdit" type="text" name="myHobbyEdit" placeholder="Hobby" class="stretchToFit">
+              </div>
+            </div>
+            
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+    
+          </div>
+
+
+          <div class="col-md-4" id="hobbyTableEditDiv">
+            <div class="col-md-6" style="padding-right: 0">
+              <br>
+              <input id="addHobbyBtnEdit" type="button" value="Add" class="stretchToFit" style="margin-top: 5px">
+            </div>
+            <div class="col-md-6" style="padding-right: 0">
+              <br>
+              <input id="removeHobbyBtnEdit" type="button" value="Remove" class="stretchToFit" style="margin-top: 5px">
+            </div>
+           <table class=" table table-bordered" id="hobbyEditTable"></table>
+          </div>
+
+          <div class="col-md-4">
+          </div>
+
+        </div>
+
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-4">
+    
+          </div>
+
+
+          <div class="col-md-4" id="submitEditDiv">
+
+            <input type="submit" name="SubmitEdit" id="SubmitEdit" value="Edit">
+          </div>
+
+          <div class="col-md-4">
+          </div>
+        </div>
+        
+
+
+      </div>
+
+
+      <!-- This is were you should place your basic HTML for exercise-2 -->
+      <div id="hobbies_html" style="display:none;">
+        <h3>Hobbies</h3>
+        <div class="row">
+          <div class="col-md-8" style="padding-left: 10px">
+            <div class="autocomplete stretchToFit">
+              <input type="text" id="hobbyName">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <input type="button" id="searchByHobby" value="Search" class="stretchToFit">
+          </div>
+        </div>
+
+        <table class="table table-bordered" id="persons-with-hobby"></table>
+
+      </div>
+      <!-- End of HTML for exercise-2 -->
+
+
+      <!-- This is were you should place your basic HTML for exercise-3 -->
+      <div id="personer_html" style="display:none;">
+
+
+
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-12">
+            <div class="col-md-2">
+              <h5 class="stretchToFit" style="margin-top: 10px;">Find User by ID</h5>
+            </div>
+            <div class="col-md-2">
+              <input type="number" id="personID" value="" class="stretchToFit">
+            </div>
+            <div class="col-md-2">
+              <input type="button" id="search" value="search" class="stretchToFit">
+            </div>
+            <div class="col-md-6">
+              <table class="table table-bordered" id="personByID"></table>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-12">
+          <div class="col-md-3">
+            <h5>Total amount of users:</h5>
+          </div>
+          <div class="col-md-9 left">
+            <p id=amountOfUsers></p>
+          </div>
+          </div>
+        </div>
+        <div class="row" style="min-height: 5em;">
+          
+          <div class="col-md-12">
+
+            <div class="col-md-4">
+              <h5 style="margin-top: 5px">Number of people with given hobby</h5>
+            </div>
+            <div class="col-md-3">
+
+              <input type="text" , id="amountOfPeopleWithGivenHobby">
+            </div>
+            <div class="col-md-2">
+              <input type="button" id="searchHobby" value="search"></input>
+            </div>
+            <div class="col-md-3">
+              <p style="margin-top: 5px" id="amountOfPeopleWithGivenHobbyResult"></p>
+            </div>
+        </div>
+        </div>
+
+        <div class="row" style="min-height: 5em;">
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5 style="margin-top: 5px">Find User by phonenumber</h5>
+            </div>
+
+            <div class="col-md-3">
+              <input class="stretchToFit" type="number" id="phoneNumber" placeholder="PhoneNumber" />
+              </div>
+              <div class="col-md-5">
+              <input type="button" id="personByPhoneSearch" value="search"></button>
+            
+            </div>
+            <table class="table table-bordered" id="personByPhoneNumber"></table>
+          </div>
+        </div>
+        <div class="row" style="min-height: 5em;">
+
+
+          <div class=" col-md-12 pre-scrollable">
+            <h3 id="center">All Persons</h3>
+            <br>
+            <table class="table table-bordered" id="allPersons"></table>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- End of HTML for exercise-3 -->
+
+      <!---- HTML for the About page -->
+
+
+
+      <div id="home_html" style="display:none;">
+        <h3>About</h3>
+        <p> 
+        Class D/E
+        3.sem Spring
+        Group
+        TechNice
+        Members
+        Jonathan, Cathrine, Mari, Jens and Nikolaj
+        <br>
+        <b>Disclaimer</b>
+        Due to constraints when working on the project and due to being allowed another week during spring break we have decided to add more phases to our sprint breakdown
+        
+        <br>
+        <b>Phase one (Monday -Tuesday): </b>
+        Who was active during this sprint?
+        All group members were active to some extent during this sprint
+        <br>
+        <b>Who did what, during this sprint?</b>
+        We set up github, made mockups and started doing basic travis setup for the development environment.
+        <br>
+        Jens made mockups. Jonathan was in charge of Travis and backend setup. Everyone else was on zoom helping when questions arose
+        <br>
+        We began implementing entities and DTO’s in the backend project and talked about the structure of the application.
+        <br>
+        <b>What did your team accomplish during this spring?</b>
+        We got the development environment set up (Travis, databases, netbeans project and a repo on github )
+        
+        <br>
+        <b>Phase two (Wednesday-Thursday):</b>
+      <b>  Who was active during this sprint?</b>
+        Mari, Cathrine, Jens and Jonathan
+        
+        <br>
+        <b>Who did what, during this sprint?</b>
+        On wednesday Jens, Mari and Cathrine worked separately on the frontend. Jonathan finished the setup of all the entity classes and their relations.
+        <br>
+        We started to implement relations between the entities for the database in the backend project and set up the hobby and zip codes scripts. 
+        In the backend project Cathrine started to implement the update person function. At this time it only updated the person’s email, first name and last name.
+        Cathrine began working on implementing Error Handling. 
+        <br>
+        Mari made some small fixes to the hobby-class, after having added the script of hobbies, whereafter our predefined hobbyclass no longer fit. 
+        
+        <br>
+        <b>What did your team accomplish during this spring?</b>
+        We made some basic templates for how the website would look as well as setting up some connections that would work when the backend was finished
+        <br>
+        <b>Phase three (Friday-Sunday):</b>
+        Who was active during this sprint?
+        Jens, Jonathan and Cathrine
+        <br>
+        <b>Who did what, during this sprint?</b>
+        Jens made some endpoints and facade methods that were missing and implemented them, with assistance from Cathrine. Jonathan also made facade methods, as well as a basic layout for most of the frontend. 
+        <br>
+        Cathrine and Nicolai implemented deletePerson() on the backend and made some tests.
+        <br>
+        <b>What did your team accomplish during this spring?</b>
+        Some of the frontend methods were beginning to work during this sprint. Although a lot of them were missing and we had several issues with cors, where it would not allow us to fetch from our api. 
+        Phase four (Monday -Tuesday): 
+        Who was active during this sprint?
+        Jens, Jonathan og Cathrine
+        <br>
+        <b>Who did what, during this sprint?</b>
+        Jens added table functionality on the page, adding fetch and plotting data into the persons table with help from Jonathan. Jonathan also implemented a few more of the table functionalities - e.g. “search for person by id”, “search for person by phone” and “get amount of people with a given hobby”.
+        <br>
+        Cathrine was advising during discord-meetings. Neither her backend nor her frontend were able to run at this point in time.
+        <br>
+        <b> What did your team accomplish during this spring?</b>
+        A working site on the frontend, more or less, as well as editing the navbar to match our entities
+        Phase five (Wednesday -Thursday): 
+        Who was active during this sprint?
+        Cathrine, Jens and Jonathan
+        <br>
+        <b>  Who did what, during this sprint?</b>
+        Cathrine and Jens worked together on implementing find person by hobby in the frontend.
+        Jonathan fixed  some problems caused by the server when fetching in the frontend, and furthermore began working on “delete person by id”, “create person” and “edit person”. 
+        <br>
+        <b>  What did your team accomplish during this spring?</b>
+        Implemented “search person by hobby functionality”, “delete person by id”
+        <br>
+        <b>  Phase six (Friday -Sunday): </b>
+          <b>  Who was active during this sprint?</b>
+        Jonathan, Jens and Cathrine
+        <br>
+        <b>  Who did what, during this sprint?</b>
+        Jonathan implemented displaying a list of hobbies, as well as a list of addresses, when typing in either kind of field. Jens assisted Jonathan and Cathrine in coding on the frontend
+        <br>
+        In the backend project Cathrine further developed “update person” to update phones, addresses, ect. on a person in the database. Cathrine started up some tests for “update person”.
+        <br>
+        <b>  What did your team accomplish during this spring?</b>
+        Almost all of the remaining endpoints were implemented in some form on the frontend, some tests were made
+        <br>
+        <b>  Phase seven (Monday -Tuesday): </b>
+          <b>  Who was active during this sprint?</b>
+        Jonathan og Cathrine
+        <br>
+        <b>  Who did what, during this sprint?</b>
+        Jonathan made frontend functions for creating and editing users work with multiple asynchronous fetches with help from Cathrine. Cathrine worked on the backend implementation of these, with a bit of help the  other way around.  Cathrine also worked a lot with making tests work after the introduction of the frontend system. 
+        <br>
+        <b>  What did your team accomplish during this spring?</b>
+        A more or less finished product with minor bugs. It does however lack a bit of error handling. 
+          <br>
+          <br>
+          <br>
+        For the prettier version: <a href="https://docs.google.com/document/d/1X4tDQUxxaXTHHMgyH2WlyzqvwWmN44oN8mX9SpZtOzI/edit">Click me!</a>
+        </p>
+        
+      
+      </div>
+      <!-- End of HTML for ABOUT Page -->
+
+
+      <!--End of all content -->
+    </div>
+
+    <!-- #################################################################-->
+    <!-- IMPORTANT  DO NOT IMPORT ANY JavaScript in this file by YOURSELF -->
+    <!-- #################################################################-->
+
+</body>
+
+</html>
